@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - RWA Projekt</title>
+    @Styles.Render("~/Content")
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body class="pt-0">
+    <div class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target=".navbar-collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <img src="~/Picture/Logo.png" style="height: 35px" alt="Alternate Text" />
+                @Html.ActionLink("RWA Apartmants", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <nav class="navbar-collapse collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-link">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-link">
+                        @Html.ActionLink("Search", "Search", "Apartmant", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-link">
+                        @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-link">
+                        @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-flex">
+                    @if (Session["user"] != null)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink(Session["user"].ToString(), "Index", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Logout", "Logout", "Home", null, new { @class = "btn btn-outline-warning" })
+                        </li>
+                    }
+                    else
+                    {
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "LogIn", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Register", "Registration", "Home", null, new { @class = "nav-link" })
+                        </li>
+                    }
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - RWA Apartmants</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/Scripts")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

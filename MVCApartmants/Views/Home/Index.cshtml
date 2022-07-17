@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="d-flex flex-wrap">
+    @Html.Partial("_Filter")
+</div>
+<hr />
+<div id="apartmant" class="d-flex flex-wrap">
+</div>
+
+@section scripts{
+    <script>
+        $.ajax({
+            url: '@Url.Action(controllerName: "Ajax", actionName: "GetApartmants")',
+            success: (function (apartmants) {
+                $("#apartmant").html(apartmants);
+            })
+        })
+    </script>
+}

@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@Html.Label(expression: "apartman", labelText: "Apartman:")
+@Html.TextBox(name: "apartman", htmlAttributes: new { @class = "form-control" }, value: null)
+
+@section scripts{
+    <script>
+
+        $("#apartman").autocomplete({
+                source: '@Url.Action(actionName: "GetAutocompleteApartmants", controllerName:"Ajax")',
+                select: function (e, ui) {
+                    e.preventDefault();
+                    var apartmant = {
+                        name: ui.item.label,
+                        id: ui.item.value
+                    };
+                    $(this).val(apartmant.name);
+                    showApartmant(apartmant.id);
+                },
+                focus: function (e, ui) {
+                    e.preventDefault();
+                    $(this).val(ui.item.label);
+                }
+            }
+        );
+
+        function showApartmant(id) {
+            window.location.href = '@Url.Action("Index", "Apartmant")?id=' + id;
+        }
+
+    </script>
+}

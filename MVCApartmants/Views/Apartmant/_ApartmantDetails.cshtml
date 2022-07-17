@@ -1,0 +1,103 @@
+﻿@model MVCApartmants.Models.ViewModels.ApartmantViewModel
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Apartment.Name) / @Html.DisplayFor(model => model.Apartment.NameEng) - @Html.DisplayFor(model => model.Apartment.CityName)</h4>
+    <hr />
+    <div class="d-flex flex-row">
+        <div id="app-image">
+            <img style="width: 275px" src="@Model.Apartment.ImgUrl" alt="Alternate Text" />
+
+            <div class="form-group" id="rating-wrapper">
+                @for (int i = 1; i <= Model.Apartment.Stars; i++)
+                {
+                    <button type="button" class="btn btn-sm btn-outline-warning" disabled data-stars="@i">
+                        <span class="fa fa-star"></span>
+                    </button>
+                }
+                @for (int i = Model.Apartment.Stars; i < 5; i++)
+                {
+                    <button type="button" class="btn btn-sm btn-default" disabled data-stars="@i">
+                        <span class="fa fa-star"></span>
+                    </button>
+                }
+            </div>
+
+            <h5>
+                @Html.DisplayNameFor(model => model.Apartment.Price):
+                @Html.DisplayFor(model => model.Apartment.Price) eur
+            </h5>
+        </div>
+        <div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <span>
+                        @Html.DisplayFor(model => model.Apartment.CityName)
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <span>
+                        @Html.DisplayFor(model => model.Apartment.BeachDistance)m from beach
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <span>
+                        @Html.DisplayFor(model => model.Apartment.TotalRooms)
+                        rooms
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <span>
+                        @Html.DisplayFor(model => model.Apartment.MaxAdults)
+                        adults
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <span>
+                        @Html.DisplayFor(model => model.Apartment.MaxChildren)
+                        children
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <span>
+                        Owner:
+                        @Html.DisplayFor(model => model.Apartment.OwnerName)
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <div>
+            <ul class="list-group list-group-flush">
+                @for (int i = 0; i < Model.ApartmantTags.Count / 2; i++)
+                {
+                    <li class="list-group-item">
+                        @Model.ApartmantTags[i].Tag.NameEng
+                    </li>
+                }
+            </ul>
+        </div>
+        <div>
+            <ul class="list-group list-group-flush">
+                @for (int i = Model.ApartmantTags.Count / 2; i < Model.ApartmantTags.Count; i++)
+                {
+                    <li class="list-group-item">
+                        @Model.ApartmantTags[i].Tag.NameEng
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-column-reverse mt-3">
+    @if (Session["user"] != null)
+    {
+        @Html.ActionLink("Review apartmant", "Review", "Apartmant", new { Id = Model.Apartment.Id }, new { @class = "btn btn-outline-dark" })
+    }
+    else
+    {
+        @Html.ActionLink("Login to review apartmant", "LogIn", "Home", null, new { @class = "btn btn-outline-dark" })
+    }
+</div>

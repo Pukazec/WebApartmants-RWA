@@ -1,0 +1,147 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminMaster.master.cs" Inherits="WebApartmants.AdminMaster" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <!-- TITLE -->
+    <title></title>
+
+    <!-- HEAD -->
+    <asp:ContentPlaceHolder ID="Head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <!-- BOOTSTRAP -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- CUSTOM CSS -->
+    <style>
+        fieldset {
+            border: 1px solid #ced4da;
+            padding: inherit;
+            border-radius: 4px;
+        }
+
+            fieldset > legend {
+                float: initial;
+                width: auto;
+                padding: revert;
+                font-size: initial;
+                margin: 0;
+            }
+    </style>
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+
+    <!-- FANCYBOX -->
+
+    <link rel="stylesheet" href="Content/jquery.fancybox.css" />
+
+    <link rel="stylesheet" href="Content/Image.css" />
+
+</head>
+<body>
+    <form id="Web_app" runat="server">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <% if (Session["user"] == null)
+                    {%>
+                <a class="navbar-brand" href="/LogIn">
+                    <img src="/Picture/Logo.png" height="40" />
+                    RWA Apartmants Admin</a>
+                <%}
+                    else
+                    {%>
+                <a class="navbar-brand" href="/Apartmants">
+                    <img src="/Picture/Logo.png" height="40" />
+                    RWA Apartmants Admin</a>
+                <%}%>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <% if (Session["user"] == null)
+                            {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/LogIn" runat="server" meta:resourcekey="aLogin">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Registration" runat="server" meta:resourcekey="aRegister">Register</a>
+                        </li>
+                        <%}
+                            else
+                            {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Apartmants" runat="server" meta:resourcekey="aApartmants">Apartmants</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Tags" runat="server" meta:resourcekey="aTags">Tags</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/RegisterdUsers" runat="server" meta:resourcekey="aRegisteredUser">Registerd users</a>
+                        </li>
+
+                        <%}%>
+                    </ul>
+                    <% if (Session["user"] != null)
+                        {%>
+                    <ul class='navbar-nav d-flex'>
+                        <li class='nav-item'>
+                            <asp:Button ID="btnLogout" meta:resourcekey="btnLogout" class="btn btn-warning" runat="server" Text="Log out" OnClick="btnLogout_Click" />
+                        </li>
+                    </ul>
+                    <%}%>
+                </div>
+            </div>
+        </nav>
+        <div class="mt-4">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <hr class='mt-4' />
+        <div class='text-center'>
+            <p>RWA- <%: DateTime.Now.Year %> &copy;</p>
+        </div>
+    </form>
+
+    <!-- JQUERY -->
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblApartmants').DataTable();
+            $('#tblTags').DataTable();
+            $('#tblUsers').DataTable();
+        });
+    </script>
+
+    <!-- FANCYBOX -->
+    <script src="/Scripts/jquery.fancybox.js"></script>
+   
+    <script>
+        $(document).ready(function () {
+            $(".fancy-photo").fancybox({
+                cyclic: true,
+                onUpdate: function () {
+                    $(".fancybox-nav span").css({
+                        visibility: "visible"
+                    });
+                    return;
+                },
+                afterClose: function () {
+                    $(".fancybox-nav span").css({
+                        visibility: "hidden"
+                    });
+                    return;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ApartmantsLibrary.Model.Apartment>
+
+@foreach (var item in Model)
+{
+    <div class="card m-3" style="width: 24rem;">
+        <img src="@item.ImgUrl" alt="Alternate Text" />
+
+        <div class="card-body">
+
+            <div class="form-group" id="rating-wrapper">
+                @for (int i = 1; i <= item.Stars; i++)
+                {
+                    <button type="button" class="btn btn-sm btn-outline-warning" disabled data-stars="@i">
+                        <span class="fa fa-star"></span>
+                    </button>
+                }
+                @for (int i = item.Stars; i < 5; i++)
+                {
+                    <button type = "button" class="btn btn-sm btn-default" disabled data-stars="@i">
+                        <span class="fa fa-star"></span>
+                    </button>
+                }
+            </div>
+
+            <div class="d-flex flex-row">
+                <div class="w-75">
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.NameEng)
+                    </h4>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <span>
+                                Town:
+                                @Html.DisplayFor(modelItem => item.City.Name)
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span>
+                                @Html.DisplayFor(modelItem => item.BeachDistance)m from beach
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span>
+                                @Html.DisplayFor(modelItem => item.TotalRooms)
+                                rooms
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span>
+                                @Html.DisplayFor(modelItem => item.MaxAdults)
+                                adults
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span>
+                                @Html.DisplayFor(modelItem => item.MaxChildren)
+                                children
+                            </span>
+                        </li>
+                    </ul>
+
+                    <h5>
+                        Price:
+                        @Html.DisplayFor(modelItem => item.Price)
+                        eur
+                    </h5>
+                </div>
+                <div class="d-flex flex-column-reverse">
+                    @Html.ActionLink("Reservation", "Index", "Apartmant", new { Id = item.Id }, new { @class = "btn btn-outline-dark" })
+                </div>
+            </div>
+        </div>
+    </div>
+}

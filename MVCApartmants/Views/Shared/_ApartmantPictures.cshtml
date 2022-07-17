@@ -1,0 +1,9 @@
+﻿@model IList<ApartmantsLibrary.Model.ApartmantPicture>
+
+
+@foreach (var item in Model)
+{
+    <a class="app-image" href="@Url.Action("ApartmantPicture", "Apartmant", new { Id = item.Id})">
+        <img class="w-100" src="@item.Bytes" />
+    </a>
+}

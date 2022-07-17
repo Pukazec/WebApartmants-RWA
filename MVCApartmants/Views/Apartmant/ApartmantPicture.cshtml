@@ -1,0 +1,16 @@
+﻿@model ApartmantsLibrary.Model.ApartmantPicture
+
+@{
+    ViewBag.Title = "ApartmantPicture";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    <img src="@Model.Bytes" alt="Alternate Text" />
+</div>
+
+<div class="mt-4">
+    @Html.ActionLink("Back", "Index", "Apartmant", new { Id = Model.ApartmentId }, new { @class = "btn btn-outline-dark" })
+</div>
+
